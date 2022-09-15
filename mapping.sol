@@ -4,6 +4,7 @@ pragma solidity ^0.8.13;
 contract Mapping {
     // Mapping from address to uint
     // 在address上整数值
+    // 账户记账用
     mapping(address => uint) public myMap;
 
 
