@@ -2,6 +2,7 @@
 
 //自然法则，根据变量声明的所在地来决定变量的location，为什么还需要coder指明呢？
 //难道根据变量的声明地无法唯一决定data location？
+//这些所有data location指的都是EVM上的
 /* https://betterprogramming.pub/solidity-tutorial-all-about-data-locations-dabd33212471
 
 state variables (declared outside of functions) = in storage by default.
