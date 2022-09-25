@@ -1,0 +1,59 @@
+private - only inside [declaring] contract
+internal - only inside [declaring] contract and child contracts
+public - inside and outside [declaring] contract
+external - only from outside [declaring] contract
+
+能继承下去的只是 public internal
+
+external:
+External functions are part of the contract interface, which means they can be called from other contracts and via transactions. 
+An external function f cannot be called internally (i.e. f() does not work, but this.f() works).
+
+this.代表外部访问？那么private成员可以用this吗？在python中，public、private都是用"self."，而solidity中，划分的更细致？
+在python中，访问成员，不管是private，public都是用self，为什么solidity中不用呢？
+python中为啥区分类变量、实例变量？类变量是所有实例共享的状态？实例变量是实例特有的？
+
+要理解solidity的可访问性，必须要写两个合约。合约的实例，就是合约的外部。所谓"外部"，就是"实例"。
+
+
+solidity中很少用this，为什么？
+
+////////////////////////////////////////////
+
+pragma solidity ^0.5.0;
+
+contract C {
+   //private state variable
+   uint private data;
+   
+   //public state variable
+   uint public info;
+
+   //constructor
+   constructor() public {
+      info = 10;
+   }
+   //private function
+   function increment(uint a) private pure returns(uint) { return a + 1; }
+   
+   //public function
+   function updateData(uint a) public { data = a; }
+   function getData() public view returns(uint) { return data; }
+   function compute(uint a, uint b) internal pure returns (uint) { return a + b; }
+}
+//External Contract
+contract D {
+   function readData() public returns(uint) {
+      C c = new C();
+      //c.updateData(7);         
+      //return c.getData();
+
+      //return c.data; //TypeError: Member "data" not found or not visible after argument-dependent lookup in contract C.
+
+      //return c.info;
+
+      //return c.increment(3); //TypeError: Member "increment" not found or not visible after argument-dependent lookup in contract C.
+   }
+}
+
+///////////////////////////////////////////////
