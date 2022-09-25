@@ -29,7 +29,7 @@ contract C {
    //public state variable
    uint public info;
 
-   //constructor
+   //constructor, 必须是public？
    constructor() public {
       info = 10;
    }
@@ -53,6 +53,11 @@ contract D {
       //return c.info;
 
       //return c.increment(3); //TypeError: Member "increment" not found or not visible after argument-dependent lookup in contract C.
+      
+      //return c.compute(1,2);   //TypeError: Member "compute" not found or not visible after argument-dependent lookup in contract C.
+
+
+
    }
 }
 
