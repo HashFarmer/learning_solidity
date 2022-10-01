@@ -1,1 +1,7 @@
 为什么不用this去access那些state variable？像在JavaScript中那样
+
+在JavaScript中，java可以区别方法中的局部变量和成员变量吗？
+JavaScript中，method中的不带this关键字变量名不会去成员变量中寻找，如果在方法的局部空间内找不到，则报错，并不会去成员变量空间查找。
+
+
+而在solidity中，默认是去state variable的空间中去查找，如果在局部空间中有同名变量，则输出警告信息，但是还是会使用局部空间的变量
