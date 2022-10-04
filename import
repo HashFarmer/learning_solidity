@@ -39,6 +39,8 @@ contract Import {
     address public foo_addr = address(foo); //这样吗？
     
     // import文件里的合约外的，这里也可以直接使用
+    // 可以看出，import过来的元素和本文件定义的元素有同样的地位，但是这样就会出现命名的冲突，如果本文件有一个同样的Point的struct，就会出现编译错误
+    // 还是rust处理的比较好，就是把他们放到一个模块中，避免和本文件同名元素冲突
     uint public sum = add(1,2);
     Point public p = Point(3,5);
 
