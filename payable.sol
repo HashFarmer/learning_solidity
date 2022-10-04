@@ -26,6 +26,7 @@ contract Payable {
     function notPayable() public {}
 
     // Function to withdraw all Ether from this contract.
+    // withdrawl函数不需要payable函数修饰
     function withdraw() public {
         // get the amount of Ether stored in this contract
         // this就是合约实例本身
