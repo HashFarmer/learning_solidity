@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
+// 定义在contract外部的struct，function都可以直接使用
 struct Point {
     uint x;
     uint y;
@@ -16,6 +17,9 @@ function add(uint x, uint y) pure returns (uint) {
 
 contract Foo {
     string public name = "Foo";
+    // contract外定义的，都可以直接使用
+    uint public sum = add(1,2);
+    Point public p = Point(3,5);
 }
 
 ====================================================
@@ -33,6 +37,10 @@ contract Import {
     // Initialize Foo.sol
     Foo public foo = new Foo(); //这相当于一个状态变量了吧，应该是上链了，但是它的地址怎么获取呢？
     address public foo_addr = address(foo); //这样吗？
+    
+    // import文件里的合约外的，这里也可以直接使用
+    uint public sum = add(1,2);
+    Point public p = Point(3,5);
 
     // Test Foo.sol by getting it's name.
     function getFooName() public view returns (string memory) {
