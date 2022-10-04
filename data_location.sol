@@ -17,13 +17,85 @@ namely when dealing with variables of complex types like struct and arrays insid
 
 对局部变量使用storage，结果如下：
 
+struct MyStruct {
+        uint foo;
+    }
+MyStruct struct_s = MyStruct(123);
+
+string string_ss;
+
 function store2() public {
         uint256 storage number2 = 123;
+        // TypeError: Data location can only be specified for array, struct or mapping types, but "storage" was given.
+        // 不管是memory, 还是 storage, 还是 calldata , 都不行，一样的错误提示
+        // 总结：简单类型、局部变量，不需要声明 storage location
+        ====
+        
+        
+        MyStruct struct_ss;    // TypeError: Data location must be "storage", "memory" or "calldata" for variable, but none was given.
+        uint256[] value;       // TypeError: Data location must be "storage", "memory" or "calldata" for variable, but none was given.
+        string string_s ;      // TypeError: Data location must be "storage", "memory" or "calldata" for variable, but none was given.
+        // 总结：复杂局部变量，声明必须带location 
+        
+        MyStruct storage struct_s1;
+        MyStruct memory struct_s2;
+        MyStruct calldata struct_s3;
+        // 总结：只是声明，没有问题的。
+        
+        
+        MyStruct storage struct_1 = MyStruct(123);
+        // TypeError: "Type struct DataLocations.MyStruct" memory is not implicitly convertible to expected "type struct DataLocations.MyStruct" storage pointer.
+        // memory -> storage pointer , 不可行，是这意思？
+        
+        MyStruct storage struct_s1 = struct_s; // 做 storage 的局部变量 ，只能做为 state variable 的storage pointer
+        
+        MyStruct calldata struct_2 = MyStruct(123);
+        // TypeError: "Type struct DataLocations.MyStruct" memory is not implicitly convertible to expected "type struct DataLocations.MyStruct" calldata.
+        
+        MyStruct memory struct_1 = MyStruct(123); // ok
+        
+        MyStruct struct_1 = MyStruct(123);
+        // TypeError: Data location must be "storage", "memory" or "calldata" for variable, but none was given.
+        
+        // 总结：对于struct，必须声明storage location。
+        
+        
+        uint256[] value; // TypeError: Data location must be "storage", "memory" or "calldata" for variable, but none was given.
+        uint256[] storage value_1; // value_1.push(1); 会出错。TypeError: This variable is of storage pointer type and can be accessed without prior assignment, which would lead to undefined behaviour.
+        uint256[] memory value_2; // value_2.push(1); 会出错。TypeError: Member "push" is not available in uint256[] memory outside of storage.
+        uint256[] calldata value_3; // // value_3.push(1); 会出错。TypeError: Member "push" is not available in uint256[] memory outside of storage.
+        
+        // 总结：对于数组类型，必须声明storage location，但是三种情况都可行，为什么？
+        
+        string storage string_s1;
+        string storage string_s1 = "abcd"; // TypeError: Type literal_string "abcd" is not implicitly convertible to expected type string storage pointer.
+        string storage string_s1 = string_ss; // ok
+        
+        string memory string_s2;
+        string memory string_s2 = "efgh"; // ok
+        string memory string_s2 = string_ss; // ok
+        
+        string calldata string_s3;
+        string calldata string_s3 = "xyz"; // TypeError: Type literal_string "xyz" is not implicitly convertible to expected type string calldata.
+        string calldata string_s3 = string_ss; // TypeError: Type string storage ref is not implicitly convertible to expected type string calldata.
+        // 总结：只是声明，都没有问题
+        
+        
+        
+
+    }
+    
+    
+    function _f( uint[] storage _arr, mapping(uint => address) storage _map, MyStruct storage _myStruct ) 
+               internal returns(uint[] memory, mapping(uint => address) storage, MyStruct memory) {
+        // do something with storage variables
+        return (_arr, _map, _myStruct);
+        
     }
 
-TypeError: Data location can only be specified for array, struct or mapping types, but "storage" was given.
 
-# 这个value仅仅有指针的意义？对value的任何操作都会反映到someData上
+
+//# 这个value仅仅有指针的意义？对value的任何操作都会反映到someData上
 contract StoragePointer {
     uint256[] public someData;
     
@@ -34,7 +106,9 @@ contract StoragePointer {
     }
 }
 
-# 以下例子说明，storage声明的local variable只能做为state variable的指针存在
+
+
+//# 以下例子说明，storage声明的local variable只能做为state variable的指针存在
 contract MemoryCopy {
     uint256[] public someData;
     constructor() public {
