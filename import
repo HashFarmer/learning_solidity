@@ -1,0 +1,41 @@
+被import的.sol文件，不必部署到链上，也可以实例化，也可以调用其中的函数
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+struct Point {
+    uint x;
+    uint y;
+}
+
+error Unauthorized(address caller);
+
+function add(uint x, uint y) pure returns (uint) {
+    return x + y;
+}
+
+contract Foo {
+    string public name = "Foo";
+}
+
+====================================================
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+// import Foo.sol from current directory
+import "./Foo.sol";
+
+// import {symbol1 as alias, symbol2} from "filename";
+import {Unauthorized, add as func, Point} from "./Foo.sol";
+
+contract Import {
+    // Initialize Foo.sol
+    Foo public foo = new Foo(); //这相当于一个状态变量了吧，应该是上链了，但是它的地址怎么获取呢？
+    address public foo_addr = address(foo); //这样吗？
+
+    // Test Foo.sol by getting it's name.
+    function getFooName() public view returns (string memory) {
+        return foo.name();
+    }
+}
