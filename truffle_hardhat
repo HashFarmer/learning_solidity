@@ -1,0 +1,31 @@
+两个都是dapp开发框架，都是node.js包
+
+
+1, truffle
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2, hardhat
+内置了一个测试node，启动方法：npx hardhat node
+
+一个hardhat项目的流程：
+npm init
+npm install --save-dev hardhat
+npx hardhat // 启动hardhat
+npx hardhat compile //编译
+npx hardhat test //测试
+npx hardhat run xx.js //运行指定脚本
+
+
