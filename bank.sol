@@ -11,10 +11,15 @@ contract Bank {
     }
 
     modifier only_new_user(){
+        
+        /*
         if( Balance[msg.sender].is_created == 1 ){
-            revert();
+            revert("you have created account!");
         }
+        */
+        require(Balance[msg.sender].is_created == 1, "you have created account!");
         _;
+
     }
 
 
