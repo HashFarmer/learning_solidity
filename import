@@ -1,5 +1,10 @@
 被import的.sol文件，不必部署到链上，也可以实例化，也可以调用其中的函数
 
+import 多层次嵌套，只import 一层即可
+
+
+============ a.sol ========================================
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
@@ -14,6 +19,12 @@ error Unauthorized(address caller);
 function add(uint x, uint y) pure returns (uint) {
     return x + y;
 }
+
+================= Foo.sol ==================================
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+import "./a.sol"
 
 contract Foo {
     string public name = "Foo";
