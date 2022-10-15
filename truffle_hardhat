@@ -6,6 +6,10 @@
 
 truffle init 
 
+// contract 文件， migrate文件， config文件 ，都写好后
+
+truffle migrate --network goerli
+
 
 
 
