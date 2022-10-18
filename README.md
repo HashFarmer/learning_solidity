@@ -2,6 +2,10 @@
 
 # https://jeancvllr.medium.com/
 
+# https://www.web3.university/tracks/create-a-smart-contract
+
+
+
 # 1
 solc - solcjs
 <br />
