@@ -32,9 +32,11 @@ pragma solidity ^0.8.13;
 import "./25_callee_single.sol";
 
 contract Caller {
+    // 必须知道 Callee的源码，否则提示 Callee标识符错误
     function setX(Callee _callee, uint _x) public {
         uint x = _callee.setX(_x); //这个_callee必须是Callee的一个部署上链合约的地址
     }
+    // 总结：与一个链上合约交互，（1）必须知道它的源码，（2）必须知道它的合约地址
 
     function setXFromAddress(address _addr, uint _x) public {
         Callee callee = Callee(_addr);
