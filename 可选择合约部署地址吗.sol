@@ -28,11 +28,13 @@ contract Callee {
 
 contract Caller {
     function setX(Callee _callee, uint _x) public {
-        uint x = _callee.setX(_x);
+        uint x = _callee.setX(_x); //从试验结果上看，这个_callee必须是Callee的一个部署上链合约的地址，其他合约或账户的地址不行
     }
 
     function setXFromAddress(address _addr, uint _x) public {
-        Callee callee = Callee(_addr);  // 这是把合约部署在指定的address上吗？
+        Callee callee = Callee(_addr);  
+        // 这是把合约部署在指定的address上吗？//从试验结果上看，这个_callee必须是Callee的一个部署上链合约的地址，其他合约或账户的地址不行
+        // 这就是说在合约中要与另一个链上合约交互，必须（1）找到它的源码，而且还得（2）找到它部署的地址
         callee.setX(_x);
     }
 
