@@ -161,6 +161,11 @@ contract MemoryCopy {
 }
 
 
+//一个合约中创建另一个合约的对象，会自动部署到链上
+// 有没有那种不部署到链上的合约对象？
+
+
+
 貌似"storage", "memory" or "calldata" ，就是为出现函数中的局部变量或函数参数中的动态数据，需要data location声明
 When we declare dynamic data types we need to specify the location to store them. 
 You must define a data location when using complex data types such as arrays, bytes, and structs. //什么时候需要使用data location关键字
