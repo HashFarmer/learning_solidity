@@ -31,7 +31,7 @@ contract Y {
     
     X public bar = new X("Joe");
     
-    // foo, bar 被自动部署到两个不同地址了
+    // foo, bar 被自动部署到两个不同地址了，这就是storage的作用了吧，如果foo，bar做为局部变量或函数参数情况会怎样？
     // 完全没有公共属性（static）的概念
     
     function getName1() public view returns (string memory) {
