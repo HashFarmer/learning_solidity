@@ -1,3 +1,7 @@
+// 被payable修饰的函数就说明这个函数是财务函数，类似于一个单位里的财务人员
+
+
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
