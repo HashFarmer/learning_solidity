@@ -1,5 +1,5 @@
 // 被payable修饰的函数就说明这个函数是财务函数，类似于一个单位里的财务人员
-
+// paybale 赋予了函数处理 msg.value 的权力
 
 
 // SPDX-License-Identifier: MIT
