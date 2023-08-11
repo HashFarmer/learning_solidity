@@ -1,7 +1,7 @@
 private - only inside [declaring] contract   [你自己的手、脚、嘴、心、肝、胃]
 internal - only inside [declaring] contract and child contracts   [你的房子、车子、财富]
 public - inside and outside [declaring] contract [公路、公园]
-external - only from outside [declaring] contract  [ 你家是开饭店的，你手里的权力，专门对外的]
+external - only from outside [declaring] contract  [ 你家是开饭店的，你手里的权力，专门对外的，银行的服务窗口]
 
 //
 
